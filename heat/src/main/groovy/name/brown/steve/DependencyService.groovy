@@ -15,6 +15,6 @@ class DependencyService {
     private RestTemplate restTemplate
 
     public String getData(){
-        return this.restTemplate.getForEntity(this.base + "/resource", String.class).getBody()
+        return restTemplate.getForEntity(base + "/resource", String.class).body
     }
 }

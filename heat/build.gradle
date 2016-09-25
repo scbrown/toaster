@@ -44,9 +44,8 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.codehaus.groovy:groovy')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
-	testCompile('org.springframework.cloud:spring-cloud-starter-contract-stub-runner')
-	testCompile('org.springframework.cloud:spring-cloud-starter-contract-verifier')
-	testCompile('org.springframework.cloud:spring-cloud-contract-wiremock')
+	compile('org.springframework.cloud:spring-cloud-starter-contract-verifier')
+	compile('org.springframework.cloud:spring-cloud-contract-wiremock')
 }
 
 dependencyManagement {
