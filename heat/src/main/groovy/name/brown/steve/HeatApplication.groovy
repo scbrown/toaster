@@ -1,4 +1,7 @@
 package name.brown.steve
+
+import groovy.json.JsonSlurper
+import name.brown.steve.dto.SeedJob
 import org.apache.commons.logging.Log
 import org.apache.commons.logging.LogFactory
 import org.springframework.beans.factory.annotation.Autowired
@@ -13,7 +16,7 @@ import org.springframework.web.client.RestTemplate
 @EnableTask
 class HeatApplication {
 
-	private static final Log log = LogFactory.getLog(HeatApplication.class)
+	private static final Log log = LogFactory.getLog(this)
 
     @Bean
     public HeatTask heatTask(){
@@ -30,11 +33,14 @@ class HeatApplication {
 	}
 	
 	public class HeatTask implements CommandLineRunner{
+        private static final Log log = LogFactory.getLog(this)
         @Autowired
-        DependencyService dependencyService
-        public void run(String... strings) throws Exception {
-            log.info "oh hai!"
-            log.info "result: ${dependencyService.data}"
+        SeedService seedService
+        public void run(String[] jobs) throws Exception {
+            log.info "jobs: $jobs"
+            jobs.each { job ->
+                log.info "result: ${seedService.getSeed((SeedJob)new JsonSlurper().parseText(job))}"
+            }
          }
     }
 }

@@ -1,0 +1,19 @@
+{
+  "request" : {
+    "method" : "GET",
+    "url" : "/seed"
+  },
+  "response" : {
+    "status" : 200,
+    "jsonBody" : {
+      "albums": [{
+        "title" : "andycapmusic",
+        "track1" : "repitshawdy",
+        "track2" : "whatdowedo"
+      }]
+    },
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

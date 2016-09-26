@@ -15,14 +15,17 @@ import org.springframework.test.context.junit4.SpringRunner
 class HeatApplicationTests {
     
 	@Rule
-	public OutputCapture outputCapture = new OutputCapture();
+	public OutputCapture outputCapture = new OutputCapture()
 
 	@Test
-	void "test task execution"() {
-	    String expected = "oh hai!"
-	    SpringApplication.run(HeatApplication.class, "")
-	    String output = this.outputCapture.toString()
-	    
-	    assert output.contains(expected)
+	void "test running basic job"(){
+		String job = """{"seedCalls":[{
+				"watchVariables":["albums.title"],
+				"url":"http://localhost:8383/seed"}]}"""
+		String expected = "andycapmusic"
+		SpringApplication.run(HeatApplication.class, job)
+		String output = this.outputCapture.toString()
+
+		assert output.contains(expected)
 	}
 }
