@@ -1,31 +1,50 @@
 package name.brown.steve
 
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.boot.test.rule.OutputCapture
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock
+import org.springframework.test.annotation.DirtiesContext
 import org.springframework.test.context.junit4.SpringRunner
 
+import static com.github.tomakehurst.wiremock.client.WireMock.*
+
 @RunWith(SpringRunner)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest
 @AutoConfigureWireMock(port = 8383, stubs="classpath:/stubs/")
+@DirtiesContext
 class HeatApplicationTests {
-    
-	@Rule
-	public OutputCapture outputCapture = new OutputCapture()
 
 	@Test
-	void "test running basic job"(){
-		String job = """{"seedCalls":[{
-				"watchVariables":["albums.title"],
-				"url":"http://localhost:8383/seed"}]}"""
-		String expected = "andycapmusic"
+	void "test running seed job"(){
+		String job = """{
+						"seedJobs":[{
+							"seedCalls":[{
+								"watchVariables":["albums.title"],
+								"url":"http://localhost:8383/seed"
+							}]
+						}],
+						"cacheJobs":[]
+						}"""
 		SpringApplication.run(HeatApplication.class, job)
-		String output = this.outputCapture.toString()
+		verify(getRequestedFor(urlEqualTo("/seed")))
+	}
 
-		assert output.contains(expected)
+	@Test
+	void "test running caching call"(){
+		String job = """{
+					"seedJobs":[{
+						"seedCalls": [{
+							"watchVariables":["albums.title", "albums.track1", "albums.track2"],
+							"url":"http://localhost:8383/seed"}]
+						}],
+					"cacheJobs": [{
+						"url":"http://localhost:8383/cachingcall/{albums.title}/{albums.track1}/{albums.track2}/",
+						"body":""
+					}]
+				}"""
+		SpringApplication.run(HeatApplication.class, job)
+		verify(getRequestedFor(urlEqualTo("/cachingcall/andycapmusic/repitshawdy/whatdowedo/")))
 	}
 }

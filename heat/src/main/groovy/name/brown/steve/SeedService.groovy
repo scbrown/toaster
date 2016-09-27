@@ -1,9 +1,7 @@
 package name.brown.steve
-
 import name.brown.steve.dto.SeedCall
 import name.brown.steve.dto.SeedCallContext
 import name.brown.steve.dto.SeedCallWatchResult
-import name.brown.steve.dto.SeedJob
 import org.apache.commons.logging.Log
 import org.apache.commons.logging.LogFactory
 import org.springframework.beans.factory.annotation.Autowired
@@ -18,7 +16,7 @@ class SeedService {
     @Autowired
     private RestTemplate restTemplate
 
-    SeedCallContext getSeed(SeedJob seedJob){
+    SeedCallContext getSeed(def seedJob){
         log.info "running job: $seedJob"
         Map contextData = new HashMap<SeedCall, SeedCallWatchResult>()
         seedJob.seedCalls.each{ seedCall ->

@@ -1,0 +1,13 @@
+{
+  "request" : {
+    "method" : "GET",
+    "url" : "/cachingcall/andycapmusic/repitshawdy/whatdowedo/"
+  },
+  "response" : {
+    "status" : 200,
+    "statusMessage": "Everything was just fine!",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}
