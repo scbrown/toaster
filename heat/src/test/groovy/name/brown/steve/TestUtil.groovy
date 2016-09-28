@@ -10,7 +10,7 @@ class TestUtil {
     static List<String> watchResult3 = ["dontworrybehappy", "bluemoon"]
 
     static SeedCallContext setupSeedCallContext() {
-        def watchVariableResult = [ "albums.title" : watchResult1]
+        def watchVariableResult = ["albums.title" : watchResult1]
         def watchVariableResult2 = ["albums.track1": watchResult2]
         def watchVariableResult3 = ["albums.track2": watchResult3]
 

@@ -20,6 +20,7 @@ class CacheRequestService {
      * Call caching url for every set of watch variables found
      */
     void doCacheCall(def job, SeedCallContext seedCallContext){
+        log.info "using job url: $job.url"
         Map<String, List<String>> seedResponses = WatchVariableUtil.getWatchVariableResults(seedCallContext)
         seedResponses.max {
             it.value.size() //biggest list of values

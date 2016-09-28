@@ -11,7 +11,7 @@ class CacheRequestServiceTests {
 
     SeedCallContext seedCallContext
 
-    def calledUrls = []
+    def calledUrls
     def restTemplate = [
         getForObject: { url, clazz, variables ->
             println "called url: $url variables: $variables"
@@ -24,14 +24,15 @@ class CacheRequestServiceTests {
         cacheRequestService = new CacheRequestService()
         cacheRequestService.restTemplate = restTemplate as RestTemplate
         seedCallContext = TestUtil.setupSeedCallContext()
+        calledUrls = []
     }
 
     @Test
-    void "test cache request calls use seeded variables"(){
-         CacheJob job = new CacheJob(url: 'http://localhost/listen/{albums.title}/{albums.track1}/{albums.track2}/', body: null)
+    void "test cache request calls the correct number of urls based on watchVariableResults"(){
+         def job = new CacheJob(url: 'dont care', body: null)
 
         cacheRequestService.doCacheCall(job, seedCallContext)
-        println "template calls: ${calledUrls}"
         assert calledUrls.size() == 2
-     }
+    }
+
 }

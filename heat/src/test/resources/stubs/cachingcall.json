@@ -1,7 +1,7 @@
 {
   "request" : {
     "method" : "GET",
-    "url" : "/cachingcall/andycapmusic/repitshawdy/whatdowedo/"
+    "urlPattern" : "/cachingcall/.*"
   },
   "response" : {
     "status" : 200,
