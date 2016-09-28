@@ -10,9 +10,10 @@ class CallParserTests {
     void "parseResponse gets watch variables"(){
         String watchVariable = "albums.title"
         String albumTitle = "andycapmusic"
+        String seedCallName = "seededAlbums"
 
         SeedCall seedCall = new SeedCall(
-                url: "/seed", watchVariables: [watchVariable]
+                name: seedCallName, url: "/seed", watchVariables: [watchVariable]
         )
         String json = """{
                 "albums": [{

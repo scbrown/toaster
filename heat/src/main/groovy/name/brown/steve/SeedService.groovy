@@ -22,7 +22,7 @@ class SeedService {
         seedJob.seedCalls.each{ seedCall ->
             log.info "calling $seedCall.url"
             String json = restTemplate.getForEntity(seedCall.url, String.class).body
-            contextData.put(seedCall, CallParser.parseResponse(json, (SeedCall) seedCall))
+            contextData.put(seedCall.name, CallParser.parseResponse(json, (SeedCall) seedCall))
             log.debug "current seed call context: $contextData"
         }
         return new SeedCallContext(contextData : contextData)

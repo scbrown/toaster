@@ -21,9 +21,9 @@ class TestUtil {
 
         def seedCallContextData = new HashMap<SeedCall, SeedCallWatchResult>()
 
-        seedCallContextData.put(new SeedCall(), seedCallWatchResult)
-        seedCallContextData.put(new SeedCall(), seedCallWatchResult2)
-        seedCallContextData.put(new SeedCall(), seedCallWatchResult3)
+        seedCallContextData.put(new SeedCall(name: "seedCall1"), seedCallWatchResult)
+        seedCallContextData.put(new SeedCall(name: "seedCall2"), seedCallWatchResult2)
+        seedCallContextData.put(new SeedCall(name: "seedCall3"), seedCallWatchResult3)
 
         def seedCallContext = new SeedCallContext(
                 contextData: seedCallContextData
