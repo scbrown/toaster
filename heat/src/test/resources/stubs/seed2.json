@@ -1,0 +1,17 @@
+{
+  "request" : {
+    "method" : "GET",
+    "url" : "/seed2"
+  },
+  "response" : {
+    "status" : 200,
+    "jsonBody" : {
+      "albums": [{
+        "title" : "NOTandycapmusic",
+      }]
+    },
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

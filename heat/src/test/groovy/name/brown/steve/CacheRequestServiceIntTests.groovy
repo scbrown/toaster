@@ -31,11 +31,15 @@ class CacheRequestServiceIntTests {
 
     @Test
     void "test cache request calls use the correct watchVariableResults"(){
-        def job = new CacheJob(url: 'http://localhost:8383/cachingcall/{albums.title}/{albums.track1}/{albums.track2}/', body: null)
+        def job = new CacheJob(urls:
+                [
+"http://localhost:8383/cachingcall/{${TestUtil.SEED_CALL1}.albums.title}/{${TestUtil.SEED_CALL2}.albums.track1}/{${TestUtil.SEED_CALL3}.albums.track2}/"
+                ], body: null)
 
         cacheRequestService.doCacheCall(job, seedCallContext)
-        def expected = "http://localhost/cachingcall/${->TestUtil.watchResult1[index]}/${->TestUtil.watchResult2[index]}/${->TestUtil.watchResult3[0]}/"
+        def expected = "http://localhost:8383/cachingcall/${->TestUtil.WATCH_RESULT1[index]}/${->TestUtil.WATCH_RESULT2[index]}/${->TestUtil.WATCH_RESULT3[0]}/"
         findAll(putRequestedFor(urlMatching("/cachingcall/.*"))).size().times{ index ->
+            println "expected: $expected"
             verify(getRequestedFor(urlEqualTo(expected)))
         }
     }

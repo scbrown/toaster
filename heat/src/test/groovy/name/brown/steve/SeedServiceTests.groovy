@@ -31,10 +31,25 @@ class SeedServiceTests {
         assert context.contextData.get(seedCall.name).watchVariableResult.get(watchVariable)?.contains("andycapmusic")
     }
 
-    /*@Test
+   /* @Test
     void "test using watch variables to get other watch variables"(){
         String watchVariable1 = "albums.title"
         String watchVariable2 = "albums.track1"
+        SeedCall seedCall1 = new SeedCall(
+                name: "seedCall1", url: "http://localhost:8383/seed", watchVariables: [watchVariable1]
+        )
+        SeedCall seedCall2 = new SeedCall(
+                name: "seedCall2", url: "http://localhost:8383/seed/{seedCall1.albums.title}", watchVariables: [watchVariable2]
+        )
+        SeedJob job = new SeedJob(seedCalls: [seedCall1, seedCall2])
+        SeedCallContext context = service.getSeed(job)
+        assert context.contextData.get(seedCall1.name).watchVariableResult.get(watchVariable1).contains("andycapmusic")
+    }*/
+
+    @Test
+    void "test getting multiple watch variables with the same name"(){
+        String watchVariable1 = "albums.title"
+        String watchVariable2 = "albums.title"
         SeedCall seedCall1 = new SeedCall(
                 name: "seedCall1", url: "http://localhost:8383/seed", watchVariables: [watchVariable1]
         )
@@ -44,5 +59,6 @@ class SeedServiceTests {
         SeedJob job = new SeedJob(seedCalls: [seedCall1, seedCall2])
         SeedCallContext context = service.getSeed(job)
         assert context.contextData.get(seedCall1.name).watchVariableResult.get(watchVariable1).contains("andycapmusic")
-    }*/
+        assert context.contextData.get(seedCall1.name).watchVariableResult.get(watchVariable1).contains("NOTandycapmusic")
+    }
 }

@@ -20,15 +20,18 @@ class CacheRequestService {
      * Call caching url for every set of watch variables found
      */
     void doCacheCall(def job, SeedCallContext seedCallContext){
-        log.info "using job url: $job.url"
+        log.info "using job urls: $job.urls"
         Map<String, List<String>> seedResponses = WatchVariableUtil.getWatchVariableResults(seedCallContext)
-        seedResponses.max {
-            it.value.size() //biggest list of values
-        }.value.size().times{ count ->
-            log.info "working with seedResponses: ${seedResponses} count: $count"
-            def expandedValues = WatchVariableUtil.expandValues(seedResponses, count)
-            log.info "expanded values: $expandedValues"
-            restTemplate.getForObject(job.url, Object, expandedValues)
+        job.urls.each{ url ->
+            seedResponses.max {
+                it.value.size() //biggest list of values
+            }.value.size().times{ count ->
+                log.info "working with seedResponses: ${seedResponses} count: $count"
+                def expandedValues = WatchVariableUtil.expandValues(seedResponses, count)
+                log.info "expanded values: ${expandedValues.toMapString()} ${expandedValues.keySet()}"
+
+                restTemplate.getForObject((String)url, Object, expandedValues)
+            }
         }
     }
 }

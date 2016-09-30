@@ -4,5 +4,5 @@ import groovy.transform.ToString
 
 @ToString(includeFields = true)
 class SeedCallContext {
-    Map<SeedCall, SeedCallWatchResult> contextData
+    Map<String, SeedCallWatchResult> contextData
 }

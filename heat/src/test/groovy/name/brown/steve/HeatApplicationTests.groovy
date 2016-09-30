@@ -36,11 +36,13 @@ class HeatApplicationTests {
 		String job = """{
 					"seedJobs":[{
 						"seedCalls": [{
+							"name":"seedCall",
 							"watchVariables":["albums.title", "albums.track1", "albums.track2"],
-							"url":"http://localhost:8383/seed"}]
-						}],
+							"url":"http://localhost:8383/seed"
+						}]
+					}],
 					"cacheJobs": [{
-						"url":"http://localhost:8383/cachingcall/{albums.title}/{albums.track1}/{albums.track2}/",
+						"urls":["http://localhost:8383/cachingcall/{seedCall.albums.title}/{seedCall.albums.track1}/{seedCall.albums.track2}/"],
 						"body":""
 					}]
 				}"""

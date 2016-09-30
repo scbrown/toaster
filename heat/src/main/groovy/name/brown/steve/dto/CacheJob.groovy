@@ -4,6 +4,6 @@ import groovy.transform.ToString
 
 @ToString(includeFields = true)
 class CacheJob {
-    String url
+    List<String> urls
     String body
 }

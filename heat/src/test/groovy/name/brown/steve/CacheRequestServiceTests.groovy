@@ -29,7 +29,7 @@ class CacheRequestServiceTests {
 
     @Test
     void "test cache request calls the correct number of urls based on watchVariableResults"(){
-         def job = new CacheJob(url: 'dont care', body: null)
+         def job = new CacheJob(urls: ['dont care'], body: null)
 
         cacheRequestService.doCacheCall(job, seedCallContext)
         assert calledUrls.size() == 2
