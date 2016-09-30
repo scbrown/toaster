@@ -59,6 +59,6 @@ class SeedServiceTests {
         SeedJob job = new SeedJob(seedCalls: [seedCall1, seedCall2])
         SeedCallContext context = service.getSeed(job)
         assert context.contextData.get(seedCall1.name).watchVariableResult.get(watchVariable1).contains("andycapmusic")
-        assert context.contextData.get(seedCall1.name).watchVariableResult.get(watchVariable1).contains("NOTandycapmusic")
+        assert context.contextData.get(seedCall2.name).watchVariableResult.get(watchVariable1).contains("NOTandycapmusic")
     }
 }

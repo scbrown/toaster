@@ -7,7 +7,7 @@
     "status" : 200,
     "jsonBody" : {
       "albums": [{
-        "title" : "NOTandycapmusic",
+        "title" : "NOTandycapmusic"
       }]
     },
     "headers": {
