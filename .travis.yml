@@ -1,5 +1,5 @@
 language: groovy
-script: cd toaster/heat && ./gradlew check
+script: cd heat && ./gradlew check
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
