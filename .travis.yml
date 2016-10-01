@@ -1,4 +1,7 @@
 language: groovy
+jdk:
+  - oraclejdk8
+
 script: cd heat && ./gradlew check
 
 after_success:
