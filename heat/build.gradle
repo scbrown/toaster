@@ -20,6 +20,7 @@ apply plugin: 'groovy'
 apply plugin: 'eclipse'
 apply plugin: 'spring-boot'
 apply plugin: 'spring-cloud-contract'
+apply plugin: "jacoco"
 
 jar {
 	baseName = 'heat'
