@@ -21,9 +21,8 @@ class SeedService {
         log.info "running job: $seedJob"
         Map contextData = new HashMap<String, SeedCallWatchResult>()
         seedJob.seedCalls.each{ seedCall ->
-            log.info "calling $seedCall.url"
             WatchVariableUtil.getLoopsForWatchVariables(contextData, seedCall.url).times{ count ->
-                //TODO: how do I know these iterations will be used?
+                log.debug "calling $seedCall.url"
                 String json = restTemplate.getForEntity(seedCall.url, String,
                         WatchVariableUtil.getValuesFromResults(contextData, count)).body
                 contextData.put(seedCall.name, CallParser.parseResponse(json, (SeedCall) seedCall))

@@ -29,7 +29,12 @@ public class HeatTask implements CommandLineRunner{
             List<SeedCallContext> seedCallContexts = new ArrayList<>()
             heatJob.seedJobs.each{seedJob ->
                 log.debug "running seedJob: $seedJob"
-                seedCallContexts.add(seedService.getSeed(seedJob))
+                try{
+                    seedCallContexts.add(seedService.getSeed(seedJob))
+                }catch(all){
+                    log.info "problem getting seeds with: $all.message"
+                }
+
             }
             log.info "seedCallContexts: $seedCallContexts"
 

@@ -3,6 +3,7 @@ package name.brown.steve
 import groovy.json.JsonSlurper
 import name.brown.steve.dto.SeedCall
 import name.brown.steve.dto.SeedCallWatchResult
+import name.brown.steve.exception.WatchVariableNotFoundException
 import org.apache.commons.logging.Log
 import org.apache.commons.logging.LogFactory
 
@@ -20,12 +21,20 @@ class CallParser {
             slurper = new JsonSlurper().parseText(json)
             watchVariable.split("\\.").each{
                 log.trace "slurper: $slurper it: $it"
-                slurper = slurper."$it"
-                log.trace "slurper after: $slurper"
+                try{
+                    slurper = slurper."$it"
+                    log.trace "slurper after: $slurper"
+                }catch(all){
+                    throw new WatchVariableNotFoundException("Watch variable: $watchVariable not found in $json died on: $it with: $all.message")
+                }
+
+                if(!slurper){
+                    throw new WatchVariableNotFoundException("Watch variable: $watchVariable not found in $json died on: $it")
+                }
             }
             found = slurper
             log.debug "parsing response for watch variable: $watchVariable found: $found"
-            response.watchVariableResult.put(watchVariable, found)
+            response.watchVariableResult.put(watchVariable, found.flatten())
         }
         return response
     }

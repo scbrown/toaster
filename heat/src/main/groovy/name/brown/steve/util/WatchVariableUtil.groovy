@@ -46,9 +46,13 @@ class WatchVariableUtil {
         if(watchVariables.keySet().empty || urlWithNoWatchVariable(watchVariables, url)){
             return 1 //call once if no watch variables to apply to url
         }
-        log.info "watch variables: $watchVariables"
+        log.trace "watch variables: $watchVariables"
         watchVariables.max {
-             it.value.size() //biggest list of values
+             if (url.contains(it.key)){ //biggest list of watch variables if the url contains it
+                 it.value.size()
+             }else{
+                 return 1 //don't count list of watch variables if the url doesn't contain it
+             }
         }.value.size()
     }
 
