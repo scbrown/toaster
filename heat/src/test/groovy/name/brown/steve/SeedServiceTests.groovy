@@ -31,7 +31,7 @@ class SeedServiceTests {
         assert context.contextData.get(seedCall.name).watchVariableResult.get(watchVariable)?.contains("andycapmusic")
     }
 
-   /* @Test
+    @Test
     void "test using watch variables to get other watch variables"(){
         String watchVariable1 = "albums.title"
         String watchVariable2 = "albums.track1"
@@ -44,7 +44,8 @@ class SeedServiceTests {
         SeedJob job = new SeedJob(seedCalls: [seedCall1, seedCall2])
         SeedCallContext context = service.getSeed(job)
         assert context.contextData.get(seedCall1.name).watchVariableResult.get(watchVariable1).contains("andycapmusic")
-    }*/
+        assert context.contextData.get(seedCall2.name).watchVariableResult.get(watchVariable2).contains("evildead")
+    }
 
     @Test
     void "test getting multiple watch variables with the same name"(){
@@ -60,5 +61,15 @@ class SeedServiceTests {
         SeedCallContext context = service.getSeed(job)
         assert context.contextData.get(seedCall1.name).watchVariableResult.get(watchVariable1).contains("andycapmusic")
         assert context.contextData.get(seedCall2.name).watchVariableResult.get(watchVariable1).contains("NOTandycapmusic")
+    }
+
+    @Test
+    void "test seed urls don't get called multiple times when there are no watch variables"(){
+
+    }
+
+    @Test
+    void "test seed urls aren't called more than they need to be when they contain watch variables"(){
+
     }
 }

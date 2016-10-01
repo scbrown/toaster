@@ -1,0 +1,17 @@
+{
+  "request" : {
+    "method" : "GET",
+    "url" : "/seed/andycapmusic"
+  },
+  "response" : {
+    "status" : 200,
+    "jsonBody" : {
+      "albums": [{
+        "track1" : "evildead"
+      }]
+    },
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}
