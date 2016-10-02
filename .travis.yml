@@ -2,7 +2,7 @@ language: groovy
 jdk:
   - oraclejdk8
 
-script: cd heat && ./gradlew check
+script: cd heat && ./gradlew check && ./gradlew jacocoTestReport
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
