@@ -27,7 +27,8 @@ class HeatApplicationTests {
 						}],
 						"cacheJobs":[]
 						}"""
-		SpringApplication.run(HeatApplication.class, job)
+		//SpringApplication.run(HeatApplication.class, job)
+		HeatApplication.main(job)
 		verify(getRequestedFor(urlEqualTo("/seed")))
 	}
 
@@ -46,7 +47,8 @@ class HeatApplicationTests {
 						"body":""
 					}]
 				}"""
-		SpringApplication.run(HeatApplication.class, job)
+		//SpringApplication.run(HeatApplication.class, job)
+		HeatApplication.main(job)
 		verify(getRequestedFor(urlEqualTo("/cachingcall/andycapmusic/repitshawdy/whatdowedo/")))
 	}
 }

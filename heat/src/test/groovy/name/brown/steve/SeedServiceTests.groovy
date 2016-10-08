@@ -1,12 +1,10 @@
 package name.brown.steve
-
 import name.brown.steve.dto.SeedCall
 import name.brown.steve.dto.SeedCallContext
 import name.brown.steve.dto.SeedJob
 import name.brown.steve.exception.WatchVariableNotFoundException
 import org.junit.Before
 import org.junit.Test
-import org.junit.rules.ExpectedException
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -151,7 +149,5 @@ class SeedServiceTests {
         SeedJob job = new SeedJob(seedCalls: [seedCall1])
 
         SeedCallContext context = service.getSeed(job)
-
-        verify(exactly(1), getRequestedFor(urlEqualTo("/seed/andycapmusic")))
     }
 }

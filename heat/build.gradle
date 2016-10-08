@@ -21,10 +21,13 @@ apply plugin: 'eclipse'
 apply plugin: 'spring-boot'
 apply plugin: 'spring-cloud-contract'
 apply plugin: "jacoco"
+apply plugin: "maven"
+
+group = 'name.brown.steve'
+version = '0.0.1-SNAPSHOT'
 
 jar {
 	baseName = 'heat'
-	version = '0.0.1-SNAPSHOT'
 }
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -59,6 +62,6 @@ dependencyManagement {
 jacocoTestReport {
 	reports {
 		xml.enabled true
-		html.enabled false
+		html.enabled true
 	}
 }
