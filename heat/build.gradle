@@ -5,6 +5,7 @@ buildscript {
 	repositories {
 		mavenCentral()
 		mavenLocal()
+		jcenter()
 		maven { url "http://repo.spring.io/snapshot" }
 		maven { url "http://repo.spring.io/milestone" }
 		maven { url "http://repo.spring.io/release" }
@@ -13,6 +14,7 @@ buildscript {
 		classpath "org.springframework.boot:spring-boot-gradle-plugin:+"
 		classpath "org.springframework.cloud:spring-cloud-contract-gradle-plugin:+"
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7'
 	}
 }
 
@@ -22,6 +24,9 @@ apply plugin: 'spring-boot'
 apply plugin: 'spring-cloud-contract'
 apply plugin: "jacoco"
 apply plugin: "maven"
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'maven-publish'
+
 
 group = 'name.brown.steve'
 version = '0.0.1-SNAPSHOT'
@@ -31,6 +36,35 @@ jar {
 }
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
+
+bintray {
+	user = System.getenv('BINTRAY_USER')
+	key = System.getenv('BINTRAY_KEY')
+	publications = ['HeatPublication']
+	pkg {
+		repo = 'generic'
+		name = 'heat-task'
+		licenses = ['Apache-2.0']
+		desc = 'Heat Task'
+		vcsUrl = 'https://github.com/scbrown/toaster'
+		version {
+			name = version
+			released  = new Date()
+			vcsTag = version
+		}
+	}
+}
+
+publishing {
+	publications {
+		HeatPublication(MavenPublication) {
+			from components.java
+			groupId group
+			artifactId "heat"
+			version version
+		}
+	}
+}
 
 repositories {
 	mavenCentral()
@@ -44,7 +78,6 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-actuator-docs')
 	compile('org.springframework.cloud:spring-cloud-task-starter:1.0.1.RELEASE')
 	compile('org.springframework.boot:spring-boot-devtools')
-	compile('org.springframework.boot:spring-boot-starter-remote-shell')
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.codehaus.groovy:groovy')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
